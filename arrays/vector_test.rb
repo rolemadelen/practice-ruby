@@ -1,5 +1,5 @@
 require 'test/unit'
-require_relative 'main.rb'
+require_relative 'vector.rb'
 
 class VectorTest < Test::Unit::TestCase
     def test_at
