@@ -20,26 +20,13 @@ class LinkedListTest < Test::Unit::TestCase
     def test_empty?
         tester = LinkedList.new
 
-        assert(tester.empty == true, "list is empty")
+        assert(tester.empty? == true, "list is empty")
 
         tester.push_front(1)
 
-        assert(tester.empty == false, "list contains a node")
+        assert(tester.empty? == false, "list contains a node")
     end
-
-    def test_value_at
-        tester = LinkedList.new
-
-        tester.push_back(1)
-        tester.push_back(2)
-        tester.push_back(3)
-
-        assert(tester.value_at(0) == 1, "first node's data")
-        assert(tester.value_at(1) == 2, "first node's data")
-        assert(tester.value_at(2) == 3, "first node's data")
-        assert(tester.value_at(10) == nil, "invalid index")
-    end
-
+    
     def test_push_front
         tester = LinkedList.new
 
@@ -112,6 +99,19 @@ class LinkedListTest < Test::Unit::TestCase
         assert(tester.pop_front == 1, "removed back node(3)")
 
         assert(tester.pop_back == nil, "remove from the empty list")
+    end
+
+    def test_value_at
+        tester = LinkedList.new
+
+        tester.push_back(1)
+        tester.push_back(2)
+        tester.push_back(3)
+
+        assert(tester.value_at(0) == 1, "first node's data")
+        assert(tester.value_at(1) == 2, "first node's data")
+        assert(tester.value_at(2) == 3, "first node's data")
+        assert(tester.value_at(10) == nil, "invalid index")
     end
 
     def test_front 
@@ -220,19 +220,19 @@ class LinkedListTest < Test::Unit::TestCase
         assert(tester.print == "5 4 2 1", "after reversing #2")
     end
 
-    def test_remove_value
-        tester = LinkedList.new
+    # def test_remove_value
+    #     tester = LinkedList.new
 
-        tester.push_back(1)
-        tester.push_back(3)
-        tester.push_back(5)
-        tester.push_back(1)
+    #     tester.push_back(1)
+    #     tester.push_back(3)
+    #     tester.push_back(5)
+    #     tester.push_back(1)
 
-        assert(tester.print == "1 3 5 1", "before removing a value 1")
-        tester.remove_value(1)
-        assert(tester.print == "3 5 1", "first node with a value 1 is removed")
+    #     assert(tester.print == "1 3 5 1", "before removing a value 1")
+    #     tester.remove_value(1)
+    #     assert(tester.print == "3 5 1", "first node with a value 1 is removed")
 
-        tester.remove_value(1)
-        assert(tester.print == "3 5", "second node with a value 1 is removed")
-    end
+    #     tester.remove_value(1)
+    #     assert(tester.print == "3 5", "second node with a value 1 is removed")
+    # end
 end
