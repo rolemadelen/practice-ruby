@@ -134,6 +134,22 @@ class LinkedList
         end
     end
 
+    def remove_value(value) 
+        index = 0
+        curr = @head
+
+        while curr
+            if curr.data == value
+                break
+            end
+
+            curr = curr.next
+            index += 1
+        end
+
+        erase(index)
+    end
+
     def print 
         ret = ""
 
@@ -168,16 +184,18 @@ class LinkedList
     end
     
     def reverse
-        prev_node = nil
         curr = @head
-        next_node = curr.next
+        _prev = nil
+        _next = nil
 
-        curr.next = prev_node
-        prev_node = curr
-        temp = next_node.next
-        next_node.next = curr
+        while curr != nil
+            _next = curr.next
+            curr.next = _prev
+            _prev = curr
+            curr = _next
+        end
 
-
+        @head = _prev
     end
 
     def front 

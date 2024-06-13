@@ -208,31 +208,30 @@ class LinkedListTest < Test::Unit::TestCase
         tester.push_back(2)
         tester.push_back(3)
         tester.push_back(4)
-        tester.push_back(5)
 
-        assert(tester.print == "1 2 3 4 5", "before reversing #1")
+        assert(tester.print == "1 2 3 4", "before reversing #1")
         tester.reverse
-        assert(tester.print == "5 4 3 2 1", "after reversing #1")
+        assert(tester.print == "4 3 2 1", "after reversing #1")
         
-        tester.erae(2)
-        assert(tester.print == "1 2 4 5", "before reversing #2")
+        tester.erase(2)
+        assert(tester.print == "4 3 1", "before reversing #2")
         tester.reverse
-        assert(tester.print == "5 4 2 1", "after reversing #2")
+        assert(tester.print == "1 3 4", "after reversing #2")
     end
 
-    # def test_remove_value
-    #     tester = LinkedList.new
+    def test_remove_value
+        tester = LinkedList.new
 
-    #     tester.push_back(1)
-    #     tester.push_back(3)
-    #     tester.push_back(5)
-    #     tester.push_back(1)
+        tester.push_back(1)
+        tester.push_back(3)
+        tester.push_back(5)
+        tester.push_back(1)
 
-    #     assert(tester.print == "1 3 5 1", "before removing a value 1")
-    #     tester.remove_value(1)
-    #     assert(tester.print == "3 5 1", "first node with a value 1 is removed")
+        assert(tester.print == "1 3 5 1", "before removing a value 1")
+        tester.remove_value(1)
+        assert(tester.print == "3 5 1", "first node with a value 1 is removed")
 
-    #     tester.remove_value(1)
-    #     assert(tester.print == "3 5", "second node with a value 1 is removed")
-    # end
+        tester.remove_value(1)
+        assert(tester.print == "3 5", "second node with a value 1 is removed")
+    end
 end
