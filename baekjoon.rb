@@ -125,3 +125,36 @@ def q3003
     p[5] = 8 - p[5]
     puts p.join(" ")
 end
+
+def q4949(s)
+    s = s.split('').select {|el| el == '(' || el == ')' || el == '[' || el == ']'}
+    stk = []
+
+    s.each do |c|
+
+        if c == '(' || c == '['
+            stk << c 
+        else 
+            if stk.size  == 0 
+                return "no"
+            end
+            top = stk[stk.size-1]
+            if !(c == ']' && top == '[' || c == ')' && top == '(')
+                return "no"
+            else
+                stk.pop
+            end
+        end
+    end
+
+
+    return stk.size == 0 ? "yes" : "no"
+end
+
+while true do
+    s = gets.chomp
+    if s == "."
+        break
+    end
+    puts q4949(s)
+end
