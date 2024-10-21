@@ -149,12 +149,47 @@ def q4949(s)
 
 
     return stk.size == 0 ? "yes" : "no"
+
+
+# while true do
+#     s = gets.chomp
+#     if s == "."
+#         break
+#     end
+#     puts q4949(s)
+# end
 end
 
-while true do
-    s = gets.chomp
-    if s == "."
-        break
+def q10828 
+    stk = []
+
+    gets
+    $<.each do |ln|
+        s, d = ln.split
+
+        case s 
+        when "push"
+            stk.unshift d.to_i
+        when "pop"
+            puts stk.empty? ? -1 : stk.shift
+        when "size"
+            puts stk.size
+        when "empty"
+            puts stk.size == 0 ? 1 : 0
+        when "top"
+            puts stk.empty? ? -1 : stk[0]
+        end
     end
-    puts q4949(s)
 end
+
+
+def q9093 
+    t = gets.to_i 
+
+    t.times do 
+        s = gets.chomp.split.map {|ln| ln.reverse!}
+        puts s.join(' ')
+    end
+end
+
+q9093
