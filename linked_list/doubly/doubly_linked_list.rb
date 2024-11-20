@@ -94,6 +94,7 @@ class DoublyLinkedList
             @head = list.head
             @tail = list.tail
         else
+            list.head.prev = @tail
             @tail.next = list.head
             @tail = list.tail
         end

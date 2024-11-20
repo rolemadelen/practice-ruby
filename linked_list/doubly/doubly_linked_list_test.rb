@@ -149,25 +149,32 @@ class DoublyLinkedListTest < Test::Unit::TestCase
         list = DoublyLinkedList.new
         list.insert 1
         list.insert 2
-        list.insert 3
-        list.insert 4
-        list.insert 5
 
-        assert(list.length == 5, "list with 5 nodes")
+        assert(list.length == 2, "list with 5 nodes")
 
         list2 = DoublyLinkedList.new
-        list2.insert 6
-        list2.insert 7
-        list2.insert 8
-        list2.insert 9
-        list2.insert 10
-        assert(list2.length ==5, "list2 with 5 nodes")
+        list2.insert 3
+        list2.insert 4
+        list2.insert 5
+        assert(list2.length == 3, "list2 with 5 nodes")
 
         list.cat list2
 
-        assert(list.length == 10, "concatenated list 1 and list 2")
+        assert(list.length == 5, "concatenated list 1 and list 2")
         assert(list.head.data == 1, "head node with 1")
-        assert(list.tail.data == 10, "tail node with 10")
+        assert(list.tail.data == 5, "tail node with 10")
+
+        assert(list.head.data == 1, "1st node")
+        assert(list.head.next.data == 2, "2nd node")
+        assert(list.head.next.next.data == 3, "3rd node")
+        assert(list.head.next.next.next.data == 4, "4th node")
+        assert(list.head.next.next.next.next.data == 5, "5th node")
+
+        assert(list.tail.data == 5, "5th node")
+        assert(list.tail.prev.data == 4, "4th node")
+        assert(list.tail.prev.prev.data == 3, "3rd node")
+        assert(list.tail.prev.prev.prev.data == 2, "2nd node")
+        assert(list.tail.prev.prev.prev.prev.data == 1, "1st node")
     end
 
     def test_clear
@@ -234,19 +241,5 @@ class DoublyLinkedListTest < Test::Unit::TestCase
 
         e = list.find_last {|item| item == 99 }
         assert(e == nil, "no data found")
-    end
-
-    def test_display
-        list = DoublyLinkedList.new
-
-        list.insert 1
-        list.insert 2
-        list.insert 3
-        list.insert 4
-        list.insert 5
-
-        list.display
-        puts
-        list.display
     end
 end
