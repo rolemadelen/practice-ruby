@@ -121,6 +121,19 @@ class SinglyLinkedListTest < Test::Unit::TestCase
         assert(list.head.next.next.data == 20, "3rd node")
         assert(list.head.next.next.next.data == 40, "4th node")
         assert(list.head.next.next.next.next.data == 50, "5th node")
+
+        list.clear
+        list.insert 1
+        list.insert 1
+        list.insert 1
+        list.insert 1
+
+        assert(list.length == 4, "list length")
+        list.remove 1
+        list.remove 1
+        list.remove 1
+        list.remove 1
+        assert(list.remove(1) == nil, "empty list")
     end
 
     def test_cat
@@ -188,17 +201,5 @@ class SinglyLinkedListTest < Test::Unit::TestCase
 
         e = list.find_first {|item| item == 99 }
         assert(e == nil, "no data found")
-    end
-
-    def test_display
-        list = SinglyLinkedList.new
-
-        list.insert 1
-        list.insert 3
-        list.insert 5
-        list.insert 7
-        list.insert 9
-        
-        list.display
     end
 end
