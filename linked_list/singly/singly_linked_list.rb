@@ -131,6 +131,8 @@ class SinglyLinkedList
     end
 
     def display
+        return nil unless @length > 0
+
         each {|item| puts item.data }
     end
 end
