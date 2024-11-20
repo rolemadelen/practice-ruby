@@ -4,10 +4,10 @@ class DoublyLinkedList
     class Node
         attr_accessor :data, :next, :prev
 
-        def initialize(item, prev_ptr=nil, next_ptr=nil)
+        def initialize(item)
             @data = item
-            @prev = prev_ptr
-            @next = next_ptr
+            @prev = nil
+            @next = nil
         end
     end
 
