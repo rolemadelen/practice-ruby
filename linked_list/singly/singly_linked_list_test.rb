@@ -14,43 +14,113 @@ class SinglyLinkedListTest < Test::Unit::TestCase
         list = SinglyLinkedList.new
 
         list.insert(17)
-        assert(list.length == 1, "insert a node (17)")
-        assert(list.head.data == 17, "head node contains 17")
-        assert(list.head.next == nil, "tail is empty")
+        assert(list.length == 1, "insert the first node (17)")
+        assert(list.head.data == 17, "head node.data == 17")
+        assert(list.tail.data == 17, "tail node.data == 17")
+        assert(list.head.next == nil, "head.next is empty")
+        assert(list.tail.next == nil, "head.tail is empty")
         assert(list.tail == list.head, "tail is the head")
         
         list.insert(34)
-        assert(list.length == 2, "insert 2nd node (34)")
-        assert(list.head.data == 17, "head node contains 17")
+        assert(list.length == 2, "insert the second node (34)")
+        assert(list.head.data == 17, "head is still the same")
         assert(list.head.next == list.tail, "head.next is tail")
         assert(list.tail.data == 34, "tail node contains 34")
+        assert(list.tail.next == nil, "tail.next is nil")
+        assert(list.head != list.tail, "the head and the tail is now different")
+
+        list.insert(51)
+        assert(list.length == 3, "insert the 3rd node")
+        assert(list.head.data == 17, "3rd node's data is 51")
+        assert(list.head.next.data == 34, "2nd node's data is 34")
+        assert(list.head.next.next.data == 51, "3rd node's data is 51")
+        assert(list.tail.data == 51, "tail data is 51")
+    end
+
+    def test_pop_back
+        list = SinglyLinkedList.new
+        assert(list.pop_back == nil, "empty list")
+
+        list.insert 1
+        list.insert 3
+        list.insert 5
+        list.insert 7
+        list.insert 9
+
+        assert(list.pop_back == 9, "remove the last node")
+        assert(list.pop_back == 7, "remove the last node")
+        assert(list.pop_back == 5, "remove the last node")
+        assert(list.pop_back == 3, "remove the last node")
+        assert(list.pop_back == 1, "remove the last node")
+        assert(list.pop_back == nil, "empty list")
+        assert(list.head == nil && list.tail == nil, "empty list")
+
+        list.insert 1
+        assert(list.pop_back == 1, "remove the last node")
+        assert(list.pop_back == nil, "empty list")
+
+        list.insert 1
+        list.insert 2
+        assert(list.head.data == 1, "head node")
+        assert(list.tail.data == 2, "tail node")
+        assert(list.pop_back == 2, "remove the last node")
+        assert(list.pop_back == 1, "remove the last node")
+    end
+
+    def pop_front
+        list = SinglyLinkedList.new
+        assert(list.pop_front == nil, "empty list")
+
+        list.insert 1
+        list.insert 3
+        list.insert 5
+        list.insert 7
+        list.insert 9
+
+        assert(list.pop_front == 1 && list.length == 4, "remove first node")
+        assert(list.pop_front == 3 && list.length == 3, "remove first node")
+        assert(list.pop_front == 5 && list.length == 2, "remove first node")
+        assert(list.pop_front == 7 && list.length == 1, "remove first node")
+        assert(list.pop_front == 9 && list.length == 0, "remove first node")
+
+        assert(list.head == nil && list.tail == nil, "empty list")
     end
 
     def test_remove
         list = SinglyLinkedList.new
 
-        list.insert(1)
-        list.insert(3)
-        list.insert(5)
-        list.insert(7)
-        list.insert(9)
+        list.insert 1
+        list.insert 3
+        list.insert 5
         
-        list.remove list.head
-        assert(list.head.data == 3, "head node removed")
+        assert(list.head.data == 1, "head node")
+        assert(list.head.next.data == 3, "middle node")
+        assert(list.head.next.next.data == 5, "tail node")
+        assert(list.tail.data == 5, "tail node")
+        
+        list.remove 3
+        assert(list.head.data == 1, "head node")
+        assert(list.head.next.data == 5, "middle node")
+        assert(list.tail.data == 5, "tail node")
+        
+        list.remove 1
+        assert(list.head.data == 5, "head node")
+        assert(list.tail.data == 5, "tail node")
+        assert(list.head.next == nil && list.tail.next == nil, "tail node")
 
-        list.remove list.tail
-        assert(list.tail.data == 7, "tail node removed")
+        list.insert 10
+        list.insert 20
+        list.insert 30
+        list.insert 40
+        list.insert 50
 
-        list.remove list.head.next
-        assert(list.length == 2, "middle node removed")
-
-        list.remove list.head
-        assert(list.head.data == 7, "head node removed 2")
-
-        # list.remove list.tail
-        # assert(list.length == 0, "empty list")
-        # assert(list.head == nil, "empty list")
-        # assert(list.tail == nil, "empty list")
+        assert(list.length == 6, "five nodes")
+        list.remove(30)
+        assert(list.head.data == 5, "1st node")
+        assert(list.head.next.data == 10, "2nd node")
+        assert(list.head.next.next.data == 20, "3rd node")
+        assert(list.head.next.next.next.data == 40, "4th node")
+        assert(list.head.next.next.next.next.data == 50, "5th node")
     end
 
     def test_cat
@@ -80,15 +150,15 @@ class SinglyLinkedListTest < Test::Unit::TestCase
 
     def test_clear
         list = SinglyLinkedList.new
-        list.insert(1)
-        list.insert(2)
-        list.insert(3)
-        list.insert(4)
-        list.insert(5)
-        list.insert(6)
-        list.insert(7)
-        list.insert(8)
-        list.insert(9)
+        list.insert 1
+        list.insert 2
+        list.insert 3
+        list.insert 4
+        list.insert 5
+        list.insert 6
+        list.insert 7
+        list.insert 8
+        list.insert 9
 
         assert(list.length == 9, "list with 9 elements")
 
@@ -100,15 +170,15 @@ class SinglyLinkedListTest < Test::Unit::TestCase
     def test_find_first
         list = SinglyLinkedList.new
 
-        list.insert(1)
-        list.insert(3)
-        list.insert(5)
-        list.insert(6)
-        list.insert(8)
-        list.insert(9)
+        list.insert 1
+        list.insert 3
+        list.insert 5
+        list.insert 7
+        list.insert 8
+        list.insert 9
 
         e = list.find_first { |item| item.data % 2 == 0 }
-        assert(e.data == 6, "first even number")
+        assert(e.data == 8, "first even number")
         
         e = list.find_first { |item| item.data == 9 }
         assert(e == list.tail, "find the tail node")
@@ -118,5 +188,17 @@ class SinglyLinkedListTest < Test::Unit::TestCase
 
         e = list.find_first {|item| item == 99 }
         assert(e == nil, "no data found")
+    end
+
+    def test_display
+        list = SinglyLinkedList.new
+
+        list.insert 1
+        list.insert 3
+        list.insert 5
+        list.insert 7
+        list.insert 9
+        
+        list.display
     end
 end
