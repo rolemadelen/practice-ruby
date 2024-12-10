@@ -17,15 +17,15 @@ class HashTable
     PRIMES = [13, 31, 61, 127, 251, 509]
     MAX_REBUILDS = 6 # Utmost equal to PRIMES.count
 
-    attr_accessor :size
+    attr_accessor :size, :slots
 
     def initialize
-        @slots    = 5
-        self.size = 0
-        @rebuilds = 0
-        @h1       = -> (k) { k % @slots }
-        @h2       = -> (k) { 1 + (k % (@slots - 1)) }
-        fill_table @slots
+        self.slots = 5
+        self.size  = 0
+        @rebuilds  = 0
+        @h1        = -> (k) { k % self.slots }
+        @h2        = -> (k) { 1 + (k % (self.slots - 1)) }
+        fill_table self.slots
     end
 
     # idiomatic way to get an entry
@@ -42,39 +42,40 @@ class HashTable
     end
 
     def print
+        i = 1
         @table.each do |e|
             if e 
-                puts "#{e.key}: #{e.value}"
+                puts "#{i} -> #{e.key}: #{e.value}"
             else
-                puts "empty"
+                puts "#{i}. empty"
             end
+            i += 1
         end
     end
+    
+private
 
     def get key
         find_slot(key)&.value
     end
 
-private
-    
     def double_hash hashcode, idx
         h1 = @h1.call(hashcode)
         h2 = @h2.call(hashcode)
-        ((h1 + (idx * h2)) % @slots).abs()
+        ((h1 + (idx * h2)) % self.slots).abs()
     end
 
     def fill_table slots
-        @table = []
-        0.upto(slots - 1) { @table << nil }
+        @table = [nil] * slots
     end
 
     def rebuild
         raise "Too many entries." if @rebuilds >= MAX_REBUILDS
 
-        old    = @table
-        @slots = PRIMES[@rebuilds]
-        self.size = 0
-        fill_table @slots
+        old        = @table
+        self.slots = PRIMES[@rebuilds]
+        self.size  = 0
+        fill_table self.slots
         old.each do |e|
             upsert e.key, e.value if e
         end
@@ -82,14 +83,14 @@ private
     end
    
     def upsert key, value
-        rebuild if self.size > (@slots / 2)
+        rebuild if self.size > (self.slots / 2)
 
         if (slot = find_slot(key))
             slot.value = value
             return
         end
 
-        0.upto(@slots - 1) do |i|
+        0.upto(self.slots - 1) do |i|
             index = double_hash key.hash, i
             slot  = @table[index]
             if slot.nil? || slot.vacated
@@ -102,7 +103,7 @@ private
     end
 
     def find_slot key
-        0.upto(@slots - 1) do |i|
+        0.upto(self.slots - 1) do |i|
             index = double_hash key.hash, i 
             slot  = @table[index]
             return nil if slot.nil? || slot.vacated
@@ -111,6 +112,3 @@ private
         nil
     end
 end
-
-ht = HashTable.new
-ht['name'] = 'jii'
