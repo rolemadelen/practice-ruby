@@ -55,13 +55,27 @@ class BinaryTree
         end
     end
 
-    def merge left, right
+	def preorder node
+		return unless node
+
+		puts node.data
+		preorder node.left
+		preorder node.right
+	end
+
+    def inorder node
+		return unless node
+
+		inorder node.left
+		puts node.data
+		inorder node.right
     end
 
-    def print_dfs
-    end
+	def postorder node
+		return unless node
 
-    def print_bfs
-    end
-
+		postorder node.left
+		postorder node.right
+		puts node.data
+	end
 end
