@@ -1,7 +1,7 @@
 require 'test/unit'
 require_relative 'queue.rb'
 
-class SinglyLinkedListTest < Test::Unit::TestCase
+class QueueTest < Test::Unit::TestCase
     def test_initialize
         q = Queue.new
 
