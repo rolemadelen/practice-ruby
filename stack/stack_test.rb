@@ -1,7 +1,7 @@
 require 'test/unit'
 require_relative 'stack.rb'
 
-class SinglyLinkedListTest < Test::Unit::TestCase
+class StackTest < Test::Unit::TestCase
     def test_initialize
         stk = Stack.new
 
