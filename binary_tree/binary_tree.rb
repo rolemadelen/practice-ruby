@@ -10,14 +10,14 @@ class BinaryTree
         end
 
         def to_s
-            puts self.data
-            puts self.left
-            puts self.right
+            puts "root: #{self.data}"
+            puts "left: #{self.left&.data}"
+            puts "right: #{self.right&.data}"
         end
     end
 
-    def initialize root
-        self.root = Node.new nil, root
+    def initialize data
+        self.root = Node.new nil, data
         self.size = 1
     end
 
